@@ -5,7 +5,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent { docker { images 'composer:latest' } }
+            agent { docker 'composer:latest' }
             steps {
                 sh 'cd app/reports'
                 sh 'composer install'
@@ -13,15 +13,15 @@ pipeline {
         }
         stage('Test') {
             parallel {
-                php_unit: {
-                    agent { docker { images 'php_unit:latest' } }
+                stage('php_unit') {
+                    agent { docker 'php_unit:latest' }
                     steps {
                         sh 'cd app/reports'
                         sh 'phpunit --bootstrap vendor/autoload.php tests'
                     }
                 }
-                sniffer: {
-                    agent { docker { images 'php:7.3' } }
+                stage('sniffer') {
+                    agent { docker 'php:7.3' }
                     steps {
                         sh 'apt-get update'
                         sh 'pear install PHP_CodeSniffer'
