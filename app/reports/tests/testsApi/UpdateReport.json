@@ -1,0 +1,19 @@
+PUT /report/3 HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Cache-Control: no-cache
+    Postman-Token: ab308223-a009-0f0d-a42d-dd6e41d9c509
+
+        E/:
+
+{
+    "title":"test5_change",
+    "content":"contenido numero 5",
+    "mail":"test@test.com"
+}
+
+        S/:
+
+{
+    "id":3
+}

@@ -1,0 +1,6 @@
+Dockerfile
+reports/vendor
+reports/README
+reports/data_report.json
+reports/.env.dist
+reports/.idea

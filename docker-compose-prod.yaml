@@ -1,0 +1,60 @@
+version: '3.1'
+
+services:
+  # -------------- No hay volúmenes en PROD
+  # --- Volumen implica
+  # - La carpeta vendor no se generará en la inicialización del contenedor al haber un volumen que hace match con el host
+  # - Si el host no tiene los vendors, por mucho que lo creemos en el container, el volumen es más restrictivo con los folder del host con lo que se pierde
+  # - PROD:
+  # -    1.- Las buenas praxis indican que PROD no debe tener volúmenes más que BBDD por temas de persistencia de datos obviamente.
+  # -    2.- Para cualquier actualización in situ acceder directamente al container
+  app:
+    build: ./app
+    env_file: app/reports/.env.prod
+    container_name: app_prod
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysql
+    networks:
+      - symfony
+    restart: on-failure
+
+  nginx:
+    build: ./nginx
+    container_name: nginx_prod
+    ports:
+      - "${NGINX_PORT_PROD}:80"     # Mapping container port to outside port
+    volumes:
+      - ./nginx/logs:/var/log/nginx
+      - ./app/reports:/code/reports
+      # Specified where is the project path for knowing public path on configuration file
+    networks:
+      - symfony
+    depends_on:
+      - app
+      # App must be uploaded firstly because this service uses the fpm.sock
+      # Before start this service, migrations must be done
+    restart: always
+
+  mysql:
+    build: ./mysql
+    container_name: mysql_prod
+    ports:
+      - "3306:3306"
+    env_file: mysql/.env
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # Volume persists on Docker (docker volume ls)
+      - ./mysql/setup:/docker-entrypoint-initdb.d:rw
+    networks:
+      - symfony
+    restart: on-failure
+
+
+networks:
+  symfony:
+
+volumes:
+  mysql-data:
+    driver: local

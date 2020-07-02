@@ -1,0 +1,16 @@
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'en'
+
+# Importar los servicios por separado correspondiente a cada capa
+# Data - importa los servicio de repositorio con la injección de dependencia EM
+# Domain - importa los servicios de UC de dominio (auto-importados en el genérico Framework)
+# Framework - importa genérico excepto Data
+#           - importa controller como servicios
+#           - importa listener para las excepciones
+imports:
+    - { resource: 'services/Data/data.yaml' }
+    - { resource: 'services/Domain/domain.yaml' }
+    - { resource: 'services/Framework/framework.yaml' }
+

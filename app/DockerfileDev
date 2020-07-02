@@ -1,0 +1,33 @@
+FROM  php:7.4-fpm
+
+# -- instalamos librerías necesarias para PHP
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+        libmcrypt-dev \
+        zlib1g-dev \
+        libxml2-dev \
+        libzip-dev \
+        libonig-dev \
+        git \
+        curl \
+        unzip \
+        vim \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo pdo_mysql mbstring zip exif pcntl
+
+# -- instalamos composer
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && composer global require hirak/prestissimo --no-plugins --no-scripts
+
+# -- set el path
+RUN mkdir /code
+
+WORKDIR /code
+
+ADD . /code/
+
+RUN chmod +x reports/run_app_dev.sh reports/run_app_prod.sh
+
+# Run composer to build dependencies in vendor folder
+RUN cd reports && composer dump-autoload && composer install --no-dev --optimize-autoloader

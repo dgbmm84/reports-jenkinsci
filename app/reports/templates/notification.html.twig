@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Notification</title>
+</head>
+<body>
+<p>Report has modified by following values:</p>
+<p>title : {{ report.title }}</p>
+<p>content : {{ report.content }}</p>
+<p>mail : {{ report.mail }}</p>
+<p>medatata :</p>
+{% for rows in report.metadata %}
+    {% for key, value in rows %}
+        <p>key {{ key }} => value {{ value }}</p>
+    {% endfor %}
+{% endfor %}
+</body>
+</html>

@@ -1,0 +1,30 @@
+POST /report HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Accept: application/json
+    Cache-Control: no-cache
+    Postman-Token: 2b09a7df-15c1-4360-a826-b04cbbe4f310
+
+        E/:
+
+{
+    "title":"test4",
+    "content":"contenido numero 4",
+    "mail":"test@test4.com",
+    "metadata":[
+        {
+            "key":1,
+            "value":"value1"
+        },
+        {
+            "key":2,
+            "value":"value2"
+        }
+    ]
+}
+
+
+        S/:
+{
+    "id": 1
+}

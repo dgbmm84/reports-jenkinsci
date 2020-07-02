@@ -1,0 +1,78 @@
+GET /reports HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Cache-Control: no-cache
+    Postman-Token: fc5a1aa4-bfea-ae45-c7eb-b79bebd4732f
+
+    E/:
+
+    ~
+
+    S/:
+
+[
+    {
+        "id": 1,
+        "title": "test1_change",
+        "content": "contenido numero 1",
+        "mail": "daniel.gutierrez@mo2o.com",
+        "metadata": [
+            {
+                "key": 3,
+                "value": "value3"
+            },
+            {
+                "key": 2,
+                "value": "value2"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "test2",
+        "content": "contenido numero 2",
+        "mail": "test@test.com",
+        "metadata": [
+            {
+                "key": 1,
+                "value": "value1"
+            },
+            {
+                "key": 2,
+                "value": "value2"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "test3",
+        "content": "contenido numero 3",
+        "mail": "test@test.com",
+        "metadata": [
+            {
+                "key": 1,
+                "value": "value1"
+            },
+            {
+                "key": 2,
+                "value": "value2"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": "test4",
+        "content": "contenido numero 4",
+        "mail": "test@test4.com",
+        "metadata": [
+            {
+                "key": 1,
+                "value": "value1"
+            },
+            {
+                "key": 2,
+                "value": "value2"
+            }
+        ]
+    }
+]

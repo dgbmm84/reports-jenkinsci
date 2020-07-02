@@ -1,0 +1,53 @@
+version: '3.1'
+
+services:
+  app:
+    build:
+      context: ./app
+      dockerfile: DockerfileDev
+    env_file: app/reports/.env
+    depends_on:
+      - mysql
+    links:
+      - mysql:mysql
+    volumes:
+      - ./app/reports:/code/reports
+      # keeps volume cos vendor is executed on our host for development and so, review changed code on container
+    networks:
+      - symfony
+    # restart: on-failure
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "${NGINX_PORT_DEV}:80"  # Mapping container port to outside port
+    volumes:
+      - ./nginx/logs:/var/log/nginx
+      - ./app/reports:/code/reports
+      # Specified where is the project path for knowing public path on configuration file
+    networks:
+      - symfony
+    depends_on:
+      - app
+      # App must be uploaded firstly because this service uses the fpm.sock
+    # restart: on-failure
+
+  mysql:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    env_file: mysql/.env
+    volumes:
+      - mysql-data:/var/lib/mysql
+      # Volume persists on Docker (docker volume ls)
+      - ./mysql/setup:/docker-entrypoint-initdb.d:rw
+    networks:
+      - symfony
+    # restart: on-failure
+
+networks:
+  symfony:
+
+volumes:
+  mysql-data:
+    driver: local

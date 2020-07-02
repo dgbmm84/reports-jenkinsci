@@ -1,0 +1,147 @@
+Pasos de ejecución de proyecto:
+
+1.- Creación plantilla Symfony4.0
+    composer create-project symfony/website-skeleton report
+
+2.- Estructura CleanArchitecture
+    Documentación a nivel de código en UC /report/addAction
+    Estructura siguiendo pautas Clean:
+        * Framewework:
+            - Controller:
+                Dispone de micro-controller de cada UC injectando su propio Servicio de UC
+            - Mapper:
+                Convierten Request a modelos de framework para su utilización
+                Engloba mappers por UC o genéricos
+            - Model:
+                Modelos de Framework
+            - EventListener:
+                Listeners de tratamiento de excepciones
+        * Domain:
+            - Exception:
+                Definen excepciones. Éstas pueden ser lanzadas en cualquiera de las capas. Recogidas/Tratadas
+                en la capa framework (listeners)
+            - Model:
+                Define modelos genéricos de dominio para cada UC
+            - Repository:
+                Define la interfaz del repositorio de UC global entre [ servicio del UC DOMAIN - repositorio DATA ]
+            - Services:
+                Define la interfaz de servicios genéricos a usar en la capa de dominio
+            - UseCase:
+                Define los UC del aplicativo. Define los modelos de S/ de cada UC específico
+        * Data:
+            - API:
+                Implementación de la interfaz de los servicios genéricos utilizados en la capa de dominio
+            - Database:
+                Clase EM de repositorio. Realiza las funciones atómicas de entidad && createQueryBuilders customizadas
+            - Mapper:
+                Define mappers de UC de Entity a modelos genéricos/específicos de UC
+            - Migrations:
+                Define las transacciones pendientes
+            - Model:
+                Define las entities del aplicativo
+            - Repository:
+                Define el tratamiento de la data
+
+
+3.- Configuración BBDD
+    DATABASE_URL=mysql://root:root@127.0.0.1:3306/report
+    [ export de data generada por la aplicación en directorio ./data_export.json ]
+
+4.- Creación BBDD
+    bin/console doctrine:database:create
+    bin/console doctrine:schema:create
+
+5.- StartUp server Symfony
+    $dir_proyecto > php -S 127.0.0.1:8000 -t public
+
+6.- Routes CRUD API REST
+    ** GetReports
+    GET /reports HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Cache-Control: no-cache
+    Postman-Token: fc5a1aa4-bfea-ae45-c7eb-b79bebd4732f
+
+    ** CreateReport
+    POST /report HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Accept: application/json
+    Cache-Control: no-cache
+    Postman-Token: 2b09a7df-15c1-4360-a826-b04cbbe4f310
+    {
+    	"title":"test4",
+    	"content":"contenido numero 4",
+    	"mail":"test@test4.com",
+    	"metadata":[
+    		{
+    			"key":1,
+    			"value":"value1"
+    		},
+    		{
+    			"key":2,
+    			"value":"value2"
+    		}
+    	]
+    }
+
+    ** UpdateReport
+    PUT /report/7 HTTP/1.1
+    Host: localhost:8000
+    Content-Type: application/json
+    Cache-Control: no-cache
+    Postman-Token: ab308223-a009-0f0d-a42d-dd6e41d9c509
+
+    {
+    	"title":"test5_change",
+    	"content":"contenido numero 5",
+    	"mail":"test@test.com"
+    }
+
+    ** DeleteReport
+    DELETE /report/4 HTTP/1.1
+    Host: localhost:8000
+    Cache-Control: no-cache
+    Postman-Token: 28b7eb3d-d4ce-fb89-be14-12119d4d3870
+    Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+7.- Creación del Migrate (priority)
+    bin/console doctrine:migrations:diff
+    > Generated new migration class to "/home/daniel/projects/report/src/Data/Migrations/Version20180213230140.php" from schema differences.
+
+    bin/console doctrine:migrations:status
+    >
+    == Configuration
+
+        >> Name:                                               Application Migrations
+        >> Database Driver:                                    pdo_mysql
+        >> Database Name:                                      report
+        >> Configuration Source:                               manually configured
+        >> Version Table Name:                                 migration_versions
+        >> Version Column Name:                                version
+        >> Migrations Namespace:                               App\Data\Migrations
+        >> Migrations Directory:                               /home/daniel/projects/report/src/Data/Migrations
+        >> Previous Version:                                   Already at first version
+        >> Current Version:                                    0
+        >> Next Version:                                       2018-02-13 23:01:40 (20180213230140)
+        >> Latest Version:                                     2018-02-13 23:01:40 (20180213230140)
+        >> Executed Migrations:                                0
+        >> Executed Unavailable Migrations:                    0
+        >> Available Migrations:                               1
+        >> New Migrations:                                     1
+
+
+8.- Configurar el servidor SMTP (.env)
+    Falta configurar el servidor de S/ emailing en el fichero .env
+
+9.- Pruebas documentadas API REST generadas ./tests/testsApi
+    {
+        CreateReport.json
+        GetReports.json
+        UpdateReport.json
+        DeleteReport.json
+    }
+    Estructura:
+        -  llamada HTTP
+        -  E/ de datos
+        -  S/ de datos
