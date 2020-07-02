@@ -1,0 +1,24 @@
+###> symfony/framework-bundle ###
+/app/reports/public/bundles/
+/app/reports/var/
+/app/reports/vendor/
+/app/reports/.idea
+/.idea
+/nginx/logs
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+/app/reports/.phpunit
+/app/reports/phpunit.xml
+/app/reports/.phpunit.result.cache
+###< symfony/phpunit-bridge ###
+
+###> symfony/web-server-bundle ###
+/app/reports/.web-server-pid
+###> symfony/web-server-bundle ###
+
+###> envs ###
+/app/reports/.env
+/app/reports/.env.prod
+/mysql/.env
+###> envs ###
