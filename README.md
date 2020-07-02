@@ -2,7 +2,7 @@
 Depliegue usando Jenkins usando un docker-compose PROD
 ---
 
-Configuration Jeninks
+Configuration Jenkins
 
     Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
         - docker pull jenkins/jenkins:lts
@@ -21,8 +21,9 @@ Configuration Jeninks
                 (Este path se encuentra tamiben en https://github.com/settings/profile - Developer Settings/PersonalAccessTokens)
             3.- Elegimos el repositorio al que conectarnos
     
-    Esta desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
-             
+            Esta desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
+    Crear WebHook en el repositorio GitHub que lance un evento onPush contra jenkins
+     
 Host de despliegue 
 
     - Es local haciendo uso de ngrok para configurar un tunnel por tcp dad una ip pública:
