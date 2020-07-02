@@ -20,7 +20,8 @@ Configuration Jeninks
                 - Se queda guardado en https://github.com/settings/tokens (Sección PersonalAccessTokens)
                 (Este path se encuentra tamiben en https://github.com/settings/profile - Developer Settings/PersonalAccessTokens)
             3.- Elegimos el repositorio al que conectarnos
-            
+    
+    Esta desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
              
 Host de despliegue 
 
