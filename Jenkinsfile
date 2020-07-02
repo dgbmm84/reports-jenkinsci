@@ -22,7 +22,7 @@ pipeline {
                                 }
                                 finally {
                                     sh 'cd app/reports'
-                                    phpunit --bootstrap vendor/autoload.php tests
+                                    sh 'phpunit --bootstrap vendor/autoload.php tests'
                                 }
                             }
                         }
@@ -32,7 +32,7 @@ pipeline {
                                     agent { docker { image 'pipelinecomponents/php-codesniffer:latest' } }
                                 } finally {
                                     sh 'cd app/reports'
-                                    phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+                                    sh 'phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php'
                                 }
                             }
                         }
