@@ -13,10 +13,12 @@ Configuration Jeninks
     Instalar los plugins correspondientes para la integración con el repositorio de GitHub    
         - Instalar los plugins de Blue Ocean ( UI que ayuda a la integración ) 
     Creación de un pipeline usando el Plugin BlueOcean
+        https://www.jenkins.io/doc/tutorials/create-a-pipeline-in-blue-ocean/
         - http://localhost:8080/blue/create-pipeline 
             1.- Lo conectamos con GitHub
             2.- Crear AccessToken dentro de GitHub para dar permisos de acceso ( Link es propocionado directamente por blueOcean ) 
                 - Se queda guardado en https://github.com/settings/tokens (Sección PersonalAccessTokens)
+                (Este path se encuentra tamiben en https://github.com/settings/profile - Developer Settings/PersonalAccessTokens)
             3.- Elegimos el repositorio al que conectarnos
             
              
