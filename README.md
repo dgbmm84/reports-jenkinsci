@@ -1,14 +1,25 @@
 ---
-Depliegue usando github Actions/fabric usando un docker-compose PROD
+Depliegue usando Jenkins usando un docker-compose PROD
 ---
 
-GitHub Actions configuration
-    
-    - En el proyecto disponer de una carpeta en raiz .github/workflows donde irán los ymls
-    - 2 workflows, uno para develop y otro para prod
-    - Configuración del repositorio github Actions:
-        -- En el repositorio /settings/secrets tenemos las variables necesarias y el SSH_KEY 
+Configuration Jeninks
 
+    Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
+        - docker pull jenkins/jenkins:lts
+        - Usage: https://github.com/jenkinsci/docker/blob/master/README.md 
+            - docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+            - http://localhost:8080/
+    
+    Instalar los plugins correspondientes para la integración con el repositorio de GitHub    
+        - Instalar los plugins de Blue Ocean ( UI que ayuda a la integración ) 
+    Creación de un pipeline usando el Plugin BlueOcean
+        - http://localhost:8080/blue/create-pipeline 
+            1.- Lo conectamos con GitHub
+            2.- Crear AccessToken dentro de GitHub para dar permisos de acceso ( Link es propocionado directamente por blueOcean ) 
+                - Se queda guardado en https://github.com/settings/tokens (Sección PersonalAccessTokens)
+            3.- Elegimos el repositorio al que conectarnos
+            
+             
 Host de despliegue 
 
     - Es local haciendo uso de ngrok para configurar un tunnel por tcp dad una ip pública:
@@ -29,9 +40,8 @@ Despliegue
     - Git push origin master 
     - Arranca los servicios de docker en la máquina destino
         - docker exec -it app_prod bash
-        - Las variables de la aplicación están declaradas en el apartado secrets /settings/secrets y se injectan automáticatimante.  
+        - Las variables de la aplicación están declaradas en el apartado // TODO y se injectan automáticatimante.  
             - Fabric usa para task arguments un tratamiento especial en los caracteres que hay que aplicar a las variables de entorno 
-                - En este caso para ENV_FILE_PROD (https://docs.fabfile.org/en/1.8/usage/fab.html#per-task-arguments)
 
 Comandos
 
