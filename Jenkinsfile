@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-node('master') {
+/*node('master') {
     try {
         stage('Build') {
             // Checkout the app at the given commit sha from the webhook
@@ -51,4 +51,18 @@ node('master') {
         // Any cleanup operations needed, whether we hit an error or not
     }
 
+}*/
+node {
+    stage('preparation') {
+        checkout scm
+        agent { docker { image 'composer:latest' } }
+    }
+    stage("composer_install") {
+        // Run `composer update` as a shell script
+        sh 'cd app/reports && composer install'
+    }
+    stage("phpunit") {
+        // Run PHPUnit
+        sh 'cd app/reports && vendor/bin/phpunit --bootstrap vendor/autoload.php tests'
+    }
 }
