@@ -1,5 +1,5 @@
 ---
-Depliegue usando Jenkins usando un docker-compose PROD
+Despliegue usando Jenkins Contra un Repositorio BitBucket usando un docker-compose PROD
 ---
 
 Configuration Jenkins

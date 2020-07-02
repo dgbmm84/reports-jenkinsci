@@ -3,7 +3,7 @@
 /app/reports/var/
 /app/reports/vendor/
 /app/reports/.idea
-/.idea
+.idea
 /nginx/logs
 ###< symfony/framework-bundle ###
 
