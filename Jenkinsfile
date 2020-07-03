@@ -24,7 +24,7 @@ pipeline {
                                     chmod +x phpunit
                                     pwd && ls -lrt
                                    '''
-                            } finally {
+                            } catch(e) {
                                 sh '''
                                     ls -lrt
                                     cd app/reports
@@ -45,7 +45,7 @@ pipeline {
                                     // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                                     pwd && ls -lrt
                                    '''
-                            } catch {
+                            } catch(e) {
                                 sh '''
                                     cd app/reports
                                     phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
