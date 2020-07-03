@@ -8,8 +8,8 @@ pipeline {
             steps {
                 checkout scm
                 sh 'pwd && ls -lrt && cd app/reports'
-                sh 'sudo apt-get update'
-                sh 'sudo apt-get install zip unzip'
+                sh 'apt-get update -y'
+                sh 'apt-get install -y zip unzip'
                 sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
                 sh 'php composer-setup.php'
                 sh 'php -r "unlink(\'composer-setup.php\');"'
@@ -30,7 +30,7 @@ pipeline {
                 stage('sniffer') {
                     steps {
                         checkout scm
-                        sh 'sudo apt-get update'
+                        sh 'apt-get -y update'
                         sh 'pear install PHP_CodeSniffer'
                         // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                         sh 'cd app/reports && pwd && ls -lrt'
