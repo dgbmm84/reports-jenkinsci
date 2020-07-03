@@ -31,7 +31,7 @@ pipeline {
                 stage('sniffer') {
                     steps {
                         checkout scm
-                        sh 'apt-get -y update'
+                        sh 'apt-get -y update && apt-get install -y php-pear'
                         sh 'pear install PHP_CodeSniffer'
                         // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                         sh 'cd app/reports && pwd && ls -lrt'
