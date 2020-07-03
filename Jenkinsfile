@@ -5,7 +5,7 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent { docker 'composer:latest' }
+            agent { docker { image 'composer:latest' }
             steps {
                 checkout scm
                 sh 'pwd && ls -lrt && cd app/reports'
