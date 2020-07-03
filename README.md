@@ -22,7 +22,14 @@ Configuration Jenkins
             3.- Elegimos el repositorio al que conectarnos
     
             Esta desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
-    Crear WebHook en el repositorio GitHub que lance un evento onPush contra jenkins
+    Creación WebHook en el repositorio Bitbucket que lance un evento onPush contra jenkins
+    Creación en Jenkins de un "FreeStyle project" dodne se configura Git con acceso Http al repositorio y que se ejecute en cada push.
+    
+    Importante: Para cualquier repositorio es necesario instalar los plugins correpondientes
+    -------------------
+    -------------------
+    No lo haremos con webhooks ya que requiere de varios ngrok (de pago) uno para jenkins y otro para el VPS de despliegue.
+    Lo que se hará es configurar en Jenkins el pipeline y ejecutarlo cada vez que hagamos un push manualmente desde Jenkins.
      
 Host de despliegue 
 

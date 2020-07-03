@@ -5,11 +5,11 @@ pipeline {
 
     stages {
         stage('Build') {
-            agent {
-                docker {
-                    image 'composer:latest'
-                }
-            }
+            //agent {
+            //   docker {
+            //        image 'composer:latest'
+            //    }
+            //}
             steps {
                 sh 'cd app/reports'
                 sh 'composer install'
@@ -18,22 +18,22 @@ pipeline {
         stage('Test') {
             parallel {
                 stage('php_unit') {
-                    agent {
-                        docker {
-                            image 'php_unit:latest'
-                        }
-                    }
+                    //agent {
+                    //    docker {
+                    //        image 'php_unit:latest'
+                    //    }
+                    //}
                     steps {
                         sh 'cd app/reports'
                         sh 'phpunit --bootstrap vendor/autoload.php tests'
                     }
                 }
                 stage('sniffer') {
-                    agent {
-                        docker {
-                            image 'php:7.3'
-                        }
-                    }
+                    //agent {
+                    //    docker {
+                    //        image 'php:7.3'
+                    //    }
+                    //}
                     steps {
                         sh 'apt-get update'
                         sh 'pear install PHP_CodeSniffer'
