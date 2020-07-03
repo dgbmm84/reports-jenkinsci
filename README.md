@@ -5,10 +5,14 @@ Despliegue usando Jenkins Contra un Repositorio GitHub usando un docker-compose 
 Configuration Jenkins
 
     Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
-        - docker pull jenkins/jenkins:lts
+        - docker run -it -p 8080:8080 -p 50000:50000 \
+              -v jenkins_home:/var/jenkins_home \
+              -v /var/run/docker.sock:/var/run/docker.sock \
+              --restart unless-stopped \
+              4oh4/jenkins-docker
+              * Note: Exige tener docker en tu local corriendo ya que Jenkinsfile hace uso de docker 
         - Usage: https://github.com/jenkinsci/docker/blob/master/README.md 
-            - docker run -u 0 -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
-            - http://localhost:8080/
+             - http://localhost:8080/
             (-u 0 : Poder ejecutar comandos as sudo)
             
     Instalar los plugins correspondientes para la integración con el repositorio de GitHub    
