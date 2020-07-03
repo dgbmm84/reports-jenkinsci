@@ -49,7 +49,7 @@ pipeline {
                 branch 'master'
             }
             steps {
-                echo 'Deploying docker images'
+                echo 'Deploying docker images master'
 
             }
         }
