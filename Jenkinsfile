@@ -14,22 +14,22 @@ pipeline {
         stage('Lints/Smells') {
             parallel {
                 stage('php_unit') {
-                    agent { docker { image 'php' } }
+                    agent { docker { image 'phpunit/phpunit' } }
                     steps {
                         script {
                             try {
-                                sh '''
+                                /*sh '''
                                     cd app/reports
                                     apt install -y wget
                                     wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
                                     chmod +x phpunit
                                     pwd && ls -lrt
-                                   '''
+                                   '''*/
                             } finally {
                                 sh '''
                                     cd app/reports
                                     ls -lrt
-                                    ./phpunit --bootstrap vendor/autoload.php tests
+                                    phpunit --bootstrap vendor/autoload.php tests
                                    '''
                             }
                         }
