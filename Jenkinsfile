@@ -14,6 +14,7 @@ pipeline {
         stage('Lints/Smells') {
             parallel {
                 stage('php_unit') {
+                    agent { docker { image 'php:7.3' } }
                     steps {
                         script {
                             try {
@@ -26,8 +27,8 @@ pipeline {
                                    '''
                             } finally {
                                 sh '''
-                                    ls -lrt
                                     cd app/reports
+                                    ls -lrt
                                     ./phpunit --bootstrap vendor/autoload.php tests
                                    '''
                             }
