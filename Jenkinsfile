@@ -3,10 +3,9 @@
 pipeline {
     agent any
     stages { // stages contains all entire workflow of pipeline
+        stage('Checkout') {
             steps {
                 checkout scm // Command jenkins for pulling project
-                sh 'pwd && ls -lrt'
-
             }
         }
         stage('Lints/Smells') { // That stage splits in 2 parallel stages
