@@ -29,7 +29,7 @@ pipeline {
                                 sh '''
                                     cd app/reports
                                     ls -lrt
-                                    phpunit --bootstrap vendor/autoload.php tests
+                                    ./phpunit --bootstrap vendor/autoload.php tests
                                    '''
                             }
                         }
