@@ -22,8 +22,7 @@ pipeline {
             parallel {
                 stage('php_unit') {
                    steps {
-                        checkout scm
-                        sh 'cd app/reports && apt install -y wget'
+                        sh 'apt install -y wget'
                         sh 'wget -O phpunit https://phar.phpunit.de/phpunit-9.phar'
                         sh 'chmod +x phpunit'
                         sh './phpunit --bootstrap vendor/autoload.php tests'
