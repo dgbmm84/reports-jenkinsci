@@ -15,7 +15,7 @@ pipeline {
                 //sh 'php composer-setup.php'
                 //sh 'php -r "unlink(\'composer-setup.php\');"'
                 //sh 'php composer.phar install'
-                composer install
+                sh 'composer install'
             }
         }
         stage('Lints/Smells') {

@@ -5,7 +5,7 @@ Despliegue usando Jenkins Contra un Repositorio GitHub usando un docker-compose 
 Configuration Jenkins
 
     Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
-        - docker run -it -p 8080:8080 -p 50000:50000 \
+        - docker run -it -u 0 -p 8080:8080 -p 50000:50000 \
               -v jenkins_home:/var/jenkins_home \
               -v /var/run/docker.sock:/var/run/docker.sock \
               --restart unless-stopped \
