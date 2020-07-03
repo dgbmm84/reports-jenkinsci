@@ -7,9 +7,9 @@ pipeline {
         stage('Build') {
             steps {
                 checkout scm
-                sh 'pwd && ls -lrt'
-                sh 'apt-get update'
-                sh 'apt-get install zip unzip'
+                sh 'pwd && ls -lrt && cd app/reports'
+                sh 'sudo apt-get update'
+                sh 'sudo apt-get install zip unzip'
                 sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
                 sh 'php composer-setup.php'
                 sh 'php -r "unlink(\'composer-setup.php\');"'
@@ -21,7 +21,7 @@ pipeline {
                 stage('php_unit') {
                    steps {
                         checkout scm
-                        sh 'apt install -y wget'
+                        sh 'cd app/reports && apt install -y wget'
                         sh 'wget -O phpunit https://phar.phpunit.de/phpunit-9.phar'
                         sh 'chmod +x phpunit'
                         sh './phpunit --bootstrap vendor/autoload.php tests'
@@ -30,7 +30,7 @@ pipeline {
                 stage('sniffer') {
                     steps {
                         checkout scm
-                        sh 'apt-get update'
+                        sh 'sudo apt-get update'
                         sh 'pear install PHP_CodeSniffer'
                         // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                         sh 'cd app/reports && pwd && ls -lrt'
