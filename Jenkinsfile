@@ -14,7 +14,7 @@ pipeline {
         stage('Lints/Smells') {
             parallel {
                 stage('php_unit') {
-                    agent { docker { image 'php:7.3-cli' } }
+                    agent { docker { image 'php' } }
                     steps {
                         script {
                             try {
