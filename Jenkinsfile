@@ -14,8 +14,8 @@ pipeline {
         stage('Lints/Smells') {
             parallel {
                 stage('php_unit') {
-                    script {
-                        steps {
+                    steps {
+                        script {
                             try {
                                 sh '''
                                     cd app/reports
@@ -33,8 +33,8 @@ pipeline {
                     }
                 }
                 stage('sniffer') {
-                    script {
-                        steps {
+                    steps {
+                        script {
                             try {
                                 sh '''
                                     apt-get -y update
