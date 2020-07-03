@@ -7,9 +7,10 @@ Configuration Jenkins
     Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
         - docker pull jenkins/jenkins:lts
         - Usage: https://github.com/jenkinsci/docker/blob/master/README.md 
-            - docker run -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
+            - docker run -u 0 -p 8080:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts
             - http://localhost:8080/
-    
+            (-u 0 : Poder ejecutar comandos as sudo)
+            
     Instalar los plugins correspondientes para la integración con el repositorio de GitHub    
         - Instalar los plugins de Blue Ocean ( UI que ayuda a la integración ) 
     Creación de un pipeline usando el Plugin BlueOcean
@@ -29,7 +30,13 @@ Configuration Jenkins
     -------------------
     -------------------
     No lo haremos con webhooks ya que requiere de varios ngrok (de pago) uno para jenkins y otro para el VPS de despliegue.
-    Lo que se hará es configurar en Jenkins el pipeline haciendo uso de "Blue Ocean Integration Plugin" y  ejecutarlo cada vez que hagamos un push manualmente desde Jenkins.
+    Lo que se hará es configurar en Jenkins 
+        1.- pipeline haciendo uso de "Blue Ocean Integration Plugin" integración con GitHub
+        2.- Volver a Dashboard jenkins http://localhost:8080/job/reports-jenkinsci/
+        3.- Despues de cada push "scan repository now"
+            - Atuomaticamente se pone en ejecución el pipeline
+            - Entramos dentro de la rama master y vemos los stages del pipeline http://localhost:8080/job/reports-jenkinsci/job/master/
+            
      
 Host de despliegue 
 

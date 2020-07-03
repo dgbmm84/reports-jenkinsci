@@ -6,6 +6,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
+                agent { docker 'php:7.3' }
                 checkout scm
                 sh 'pwd && ls -lrt && cd app/reports'
                 sh 'apt-get update -y'
