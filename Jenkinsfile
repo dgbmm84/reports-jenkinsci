@@ -26,6 +26,8 @@ pipeline {
                                    '''
                             } finally {
                                 sh '''
+                                    ls -lrt
+                                    cd app/reports
                                     ./phpunit --bootstrap vendor/autoload.php tests
                                    '''
                             }
@@ -43,7 +45,7 @@ pipeline {
                                     // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                                     pwd && ls -lrt
                                    '''
-                            } finally {
+                            } catch {
                                 sh '''
                                     cd app/reports
                                     phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
