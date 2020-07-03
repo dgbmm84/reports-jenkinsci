@@ -20,7 +20,6 @@ pipeline {
                                 sh '''
                                     cd app/reports
                                     composer install
-                                    apt install -y wget
                                     wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
                                     chmod +x phpunit
                                     pwd && ls -lrt
