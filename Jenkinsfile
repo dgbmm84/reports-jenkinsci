@@ -3,28 +3,28 @@
 pipeline {
     agent any
     stages {
-        stage('Build') {
-            agent { docker { image 'composer:latest' } }
+        stage('Pull') {
             steps {
                 checkout scm
                 sh 'pwd && ls -lrt'
-                sh 'cd app/reports && composer install'
+
             }
         }
         stage('Lints/Smells') {
             parallel {
                 stage('php_unit') {
-                    agent { docker { image 'phpunit:7.4.0' } }
+                    agent { docker { image 'composer:latest' } }
                     steps {
                         script {
                             try {
-                                /*sh '''
+                                sh '''
                                     cd app/reports
+                                    composer install
                                     apt install -y wget
                                     wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
                                     chmod +x phpunit
                                     pwd && ls -lrt
-                                   '''*/
+                                   '''
                             } finally {
                                 sh '''
                                     cd app/reports
