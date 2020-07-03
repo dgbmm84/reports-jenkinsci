@@ -8,14 +8,14 @@ pipeline {
             agent { docker { image 'composer:latest' } }
             steps {
                 checkout scm
-                sh 'pwd && ls -lrt && cd app/reports'
+                sh 'pwd && ls -lrt'
                 //sh 'apt-get update -y'
                 //sh 'apt-get install -y zip unzip'
                 //sh 'php -r "copy(\'https://getcomposer.org/installer\', \'composer-setup.php\');"'
                 //sh 'php composer-setup.php'
                 //sh 'php -r "unlink(\'composer-setup.php\');"'
                 //sh 'php composer.phar install'
-                sh 'composer install'
+                sh 'cd app/reports && composer install'
             }
         }
         stage('Lints/Smells') {
