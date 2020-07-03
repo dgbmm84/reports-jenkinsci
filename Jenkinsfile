@@ -39,7 +39,6 @@ pipeline {
                             apt-get -y update
                             apt-get install -y php-pear
                             pear install PHP_CodeSniffer || true
-                            // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                             pwd && ls -lrt
                             cd app/reports
                             phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
