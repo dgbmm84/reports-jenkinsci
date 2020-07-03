@@ -2,21 +2,20 @@
 
 pipeline {
     agent any
-    stages {
-        stage('Pull') {
+    stages { // stages contains all entire workflow of pipeline
             steps {
-                checkout scm
+                checkout scm // Command jenkins for pulling project
                 sh 'pwd && ls -lrt'
 
             }
         }
-        stage('Lints/Smells') {
+        stage('Lints/Smells') { // That stage splits in 2 parallel stages
             parallel {
                 stage('php_unit') {
-                    agent { docker { image 'composer:latest' } }
+                    agent { docker { image 'composer:latest' } } // In that case stage uses docker image
                     steps {
                         script {
-                            try {
+                            try { // Always trying this script
                                 sh '''
                                     cd app/reports
                                     composer install
@@ -24,7 +23,7 @@ pipeline {
                                     chmod +x phpunit
                                     pwd && ls -lrt
                                    '''
-                            } finally {
+                            } finally { // Whatever occurs before, it always is executed
                                 sh '''
                                     cd app/reports
                                     ls -lrt
@@ -37,20 +36,15 @@ pipeline {
                 stage('sniffer') {
                     steps {
                         script {
-                            try {
-                                sh '''
-                                    apt-get -y update
-                                    apt-get install -y php-pear
-                                    pear install PHP_CodeSniffer
-                                    // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
-                                    pwd && ls -lrt
-                                   '''
-                            } catch(e) {
-                                sh '''
-                                    cd app/reports
-                                    phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
-                                   '''
-                            }
+                            sh '''
+                                apt-get -y update
+                                apt-get install -y php-pear
+                                pear install PHP_CodeSniffer || true
+                                // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
+                                pwd && ls -lrt
+                                cd app/reports
+                                phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+                               '''
                         }
                     }
                 }
