@@ -26,7 +26,7 @@ pipeline {
                         sh 'wget -O phpunit https://phar.phpunit.de/phpunit-9.phar'
                         sh 'chmod +x phpunit'
                         sh 'pwd && ls -lrt'
-                        sh './phpunit --bootstrap vendor/autoload.php tests'
+                        sh 'cd app/reports && ../../phpunit --bootstrap vendor/autoload.php tests'
                     }
                 }
                 stage('sniffer') {
@@ -36,7 +36,7 @@ pipeline {
                         sh 'pear install PHP_CodeSniffer'
                         // - phpcs --extensions=php src/Framework/Controller # Path for checking entire project
                         sh 'pwd && ls -lrt'
-                        sh 'phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php'
+                        sh 'cd app/reports && phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php'
                     }
                 }
             }
