@@ -24,7 +24,7 @@ pipeline {
                                     chmod +x phpunit
                                     pwd && ls -lrt
                                    '''
-                            } catch(e) {
+                            } finally {
                                 sh '''
                                     ls -lrt
                                     cd app/reports
@@ -48,7 +48,7 @@ pipeline {
                             } catch(e) {
                                 sh '''
                                     cd app/reports
-                                    phpcs --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
+                                    phpcs -v --extensions=php --standard=PSR2 src/Framework/Controller/ClassPhpCS.php
                                    '''
                             }
                         }
