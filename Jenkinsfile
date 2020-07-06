@@ -3,7 +3,7 @@
 pipeline {
     agent any
     stages { // stages contains all entire workflow of pipeline
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 checkout scm // Command jenkins for pulling project
             }
@@ -46,7 +46,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
         stage('Push') {
             when {
                 branch 'master'
