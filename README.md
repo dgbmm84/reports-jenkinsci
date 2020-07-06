@@ -5,11 +5,7 @@ Despliegue usando Jenkins Contra un Repositorio GitHub usando un docker-compose 
 Configuration Jenkins
 
     Instalar Jenkins en la máquina o bajarse una instancia de docker con jenkins (Iniciaremos la 2ª opción)
-        - docker run -it -u 0 -p 8080:8080 -p 50000:50000 \
-              -v jenkins_home:/var/jenkins_home \
-              -v /var/run/docker.sock:/var/run/docker.sock \
-              --restart unless-stopped \
-              4oh4/jenkins-docker
+        - docker run -it -u 0 -p 8080:8080 -p 50000:50000     -v jenkins_home:/var/jenkins_home     -v /var/run/docker.sock:/var/run/docker.sock     --restart unless-stopped     4oh4/jenkins-docker
               * Note: Exige tener docker en tu local corriendo ya que Jenkinsfile hace uso de docker 
         - Usage: https://github.com/jenkinsci/docker/blob/master/README.md 
              - http://localhost:8080/
@@ -26,9 +22,11 @@ Configuration Jenkins
                 (Este path se encuentra tamiben en https://github.com/settings/profile - Developer Settings/PersonalAccessTokens)
             3.- Elegimos el repositorio al que conectarnos
     
-            Esta desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
-    Creación WebHook en el repositorio GitHub que lance un evento onPush contra jenkins
-    Creación en Jenkins de un "FreeStyle project" dodne se configura Git con acceso Http al repositorio y que se ejecute en cada push.
+            Este desarrollo nos creará pipelines con una configuración base Oauth contra el repositorio. Falta añadir al root del projecto el fichero Jenkinsfile.
+    
+    Pasos a realizar si se tuviera un servidor dedicado (público):
+     - Creación WebHook en el repositorio GitHub que lance un evento onPush contra jenkins
+     - Creación en Jenkins de un "FreeStyle project" dodne se configura Git con acceso Http al repositorio y que se ejecute en cada push.
     
     Importante: Para cualquier repositorio es necesario instalar los plugins correpondientes
     -------------------
@@ -40,7 +38,10 @@ Configuration Jenkins
         3.- Despues de cada push "scan repository now"
             - Atuomaticamente se pone en ejecución el pipeline
             - Entramos dentro de la rama master y vemos los stages del pipeline http://localhost:8080/job/reports-jenkinsci/job/master/
-            
+    
+    Conexión SSH:
+        - Instalar plugins SSH Agent en Jenkins, 
+        - Configurar las credenciales en Manage Credentials
      
 Host de despliegue 
 
