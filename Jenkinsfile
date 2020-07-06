@@ -60,8 +60,8 @@ pipeline {
                         apt install -y python3-pip && pip3 --version
                         pip3 install Fabric3==1.13.1.post1 && fab --version
                         '''
-                        // Enviroment variables are declared on Jenkins > System Configuration > Global Properties
-                        // sshagent uses ID for creation connection configured on Jenkins > Jenkins > Manage Credentials > SSH Username with private key
+                        // - Enviroment variables are declared on Jenkins > System Configuration > Global Properties
+                        // - sshagent uses ID for creation connection configured on Jenkins > Jenkins > Manage Credentials > SSH Username with private key
                         sshagent(credentials : ['ssh_jenkins_ngrok_localhost']) {
                             sh 'fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"'
                         }
