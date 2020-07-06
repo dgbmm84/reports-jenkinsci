@@ -73,7 +73,6 @@ def deploy(env_file=None, mysql_env_file=None):
 
 def git_pull(sha1, env_file, mysql_env_file):
     with cd(environments['default']['home']):
-        run(f'echo "{sha1}"')
         print("Running git pull on ", environments['default']['git']['parent'], environments['default']['git']['branch'])
         run('git pull %s %s' % (environments['default']['git']['parent'],
                                 environments['default']['git']['branch']))
