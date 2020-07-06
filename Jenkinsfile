@@ -61,7 +61,7 @@ pipeline {
                         '''
                         // Enviroment variables are declared on Jenkins > System Configuration > Global Properties
                         // sshagent uses ID for creation connection configured on Jenkins > Jenkins > Manage Credentials > SSH Username with private key
-                        sshagent(credentials : ['dbe6289b-1e73-455e-b9b5-5dbde44d3b18']) {
+                        sshagent(credentials : ['ssh_jenkins_ngrok_localhost']) {
                             sh 'fab production deploy:env_file="env.ENV_FILE_PROD",mysql_env_file="env.ENV_MYSQL_FILE"'
                         }
                     } catch(e) {
