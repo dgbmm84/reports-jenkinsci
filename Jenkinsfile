@@ -37,6 +37,7 @@ pipeline {
                         // | true - ignores error bash in case of pear already installed, continuing execution
                         sh '''
                             apt-get -y update
+                            apt-get install -y apt-utils
                             apt-get install -y php-pear
                             pear install PHP_CodeSniffer || true
                             pwd && ls -lrt
