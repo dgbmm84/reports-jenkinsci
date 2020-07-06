@@ -52,19 +52,19 @@ pipeline {
                 branch 'master'
             }
             steps {
-                try {
-                    script {
+                script {
+                    try {
                         sh '''
                         apt install -y python3-pip && pip3 --version
                         pip3 install Fabric3==1.13.1.post1 && fab --version
                         '''
+                        sshagent(credentials : ['dbe6289b-1e73-455e-b9b5-5dbde44d3b18']) {
+                            sh 'fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"'
+                        }
+                    } catch(e) {
+                        echo 'Impossible establish connection SSH'
+                        echo 'Err: Incremental Build failed with Error: ' + e.toString()
                     }
-                    sshagent(credentials : ['dbe6289b-1e73-455e-b9b5-5dbde44d3b18']) {
-                        sh 'fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"'
-                    }
-                } catch(e) {
-                    echo 'Impossible establish connection SSH'
-                    echo 'Err: Incremental Build failed with Error: ' + e.toString()
                 }
             }
         }
