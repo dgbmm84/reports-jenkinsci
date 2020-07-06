@@ -62,8 +62,9 @@ pipeline {
                     sshagent(credentials : ['dbe6289b-1e73-455e-b9b5-5dbde44d3b18']) {
                         sh 'fab production deploy:env_file="$ENV_FILE_PROD",mysql_env_file="$ENV_MYSQL_FILE"'
                     }
-                } catch {
+                } catch(e) {
                     echo 'Impossible establish connection SSH'
+                    echo 'Err: Incremental Build failed with Error: ' + e.toString()
                 }
             }
         }
