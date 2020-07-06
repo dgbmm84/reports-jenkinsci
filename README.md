@@ -41,7 +41,8 @@ Configuration Jenkins
     
     Conexión SSH:
         - Instalar plugins SSH Agent en Jenkins, 
-        - Configurar las credenciales en Manage Credentials
+        - Configurar las credenciales en Manage Credentials (Jenkins > System Configuration > Global Properties)
+        - Configurar las credenciales SSHAgent (Jenkins > Manage Credentials > SSH Username with private key) 
      
 Host de despliegue 
 
@@ -63,7 +64,7 @@ Despliegue
     - Git push origin master 
     - Arranca los servicios de docker en la máquina destino
         - docker exec -it app_prod bash
-        - Las variables de la aplicación están declaradas en el apartado // TODO y se injectan automáticatimante.  
+        - Las variables de la aplicación están declaradas en el apartado (Jenkins > System Configuration > Global Properties) y se injectan automáticatimante.  
             - Fabric usa para task arguments un tratamiento especial en los caracteres que hay que aplicar a las variables de entorno 
 
 Comandos
